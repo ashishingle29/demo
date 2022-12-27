@@ -7,6 +7,7 @@ const multer=require("multer")
 
 mongoose.set('strictQuery', true)
 
+app.use(express.json());
 app.use(multer().any())
 
 

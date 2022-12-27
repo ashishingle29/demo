@@ -106,6 +106,12 @@ const updateOrder = async function (req, res){
             }
         }
 
+        if (checkstatus.status == "completed" || checkstatus.status == "cancelled") {
+            return res.status(400).send({ status: false, message: "Your order Status is already updated. Now You can't change" });
+        }
+
+        if (checkstatus.cancellable == false) { return res.status(400).send({ status: false, message: "This order is not provided cancellable Policy" }); }
+
         const orderCancel = await orderModel.findOneAndUpdate({ _id:orderId },{$set:newStatus},{ new: true });
         return res.status(200).send({ status: true, message: "Success", data: orderCancel });
     }catch(err){

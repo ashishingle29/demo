@@ -23,7 +23,7 @@ const createProduct = async function (req, res) {
         if (!description) { return res.status(400).send({ status: "false", message: "description is mandatory" }) };
         if (!price) { return res.status(400).send({ status: "false", message: "price is mandatory " }) };
         if (!currencyId) { return res.status(400).send({ status: "false", message: "currencyId is mandatory" }) };
-        // if (!currencyFormat) { return res.status(400).send({ status: "false", message: "currencyFormat is mandatory" }) };
+        if (!currencyFormat) { return res.status(400).send({ status: "false", message: "currencyFormat is mandatory" }) };
         if (!availableSizes) { return res.status(400).send({ status: "false", message: "availableSizes is mandatory" }) };
         //----------------------checkvalidation--------------------------------
         if (!valid(title)) {
@@ -42,9 +42,6 @@ const createProduct = async function (req, res) {
 
         if (!valid(description)) {
             return res.status(400).send({ status: "false", message: "description must be present" });
-        }
-        if (!isValidName(description)) {
-            return res.status(400).send({ status: "false", message: " description must be in string" });
         }
 
         if (!valid(currencyId)) {
@@ -65,9 +62,9 @@ const createProduct = async function (req, res) {
             if (typeof price != 'number')
                 return res.status(400).send({ status: false, message: "Invalid Price" })
         }
-        // if (currencyFormat != "₹") {
-        //     return res.status(400).send({ status: "false", message: "currencyFormat must be in string ₹" });
-        // }
+        if (currencyFormat != "₹") {
+            return res.status(400).send({ status: "false", message: "currencyFormat must be in string ₹" });
+        }
 
         if (isFreeShipping) {
             if (!(isFreeShipping == "true" || isFreeShipping == "false"))
@@ -100,10 +97,16 @@ const createProduct = async function (req, res) {
 
     }
     catch (error) {
-        // console.log("This is the error :", error.message)
+        
         res.status(500).send({ status: false, data: error.message })
     }
 }
+
+
+
+
+
+//.....................................................
 const getProductsById = async function (req, res) {
     try {
         let ProductId = req.params.productId;

@@ -12,8 +12,7 @@ const {
   isValidPhone,
   isValidPassword,
   isvalidPincode,
-  isValidStreet,
-  isValidString
+  isValidStreet
 } = require("../validator/validations");
 
 
@@ -271,11 +270,11 @@ const updateUserProfile = async function (req, res) {
         if (address.shipping) {
            let { street, city, pincode } = address.shipping
            if (street) {
-              if (!isValidString(street)) return res.status(400).send({ status: false, message: "Please Enter valid Street" })
+              if (!isValidStreet(street)) return res.status(400).send({ status: false, message: "Please Enter valid Street" })
               address['shipping.street'] = street
            }
            if (city) {
-              if (!isValidString(city)) return res.status(400).send({ status: flase, message: "Please Enter valid city" })
+              if (!isValidStreet(city)) return res.status(400).send({ status: flase, message: "Please Enter valid city" })
               address['shipping.city'] = city
            }
            if (pincode) {
@@ -287,11 +286,11 @@ const updateUserProfile = async function (req, res) {
         if (address.billing) {
            let { street, city, pincode } = address.billing
            if (street) {
-              if (!isValidString(street)) return res.status(400).send({ status: false, message: "Please Enter valid Street" })
+              if (!isValidStreet(street)) return res.status(400).send({ status: false, message: "Please Enter valid Street" })
               address['billing.street'] = street
            }
            if (city) {
-              if (!isValidString(city)) return res.status(400).send({ status: false, message: "Please Enter valid city" })
+              if (!isValidStreet(city)) return res.status(400).send({ status: false, message: "Please Enter valid city" })
               address['billing.city'] = city
            }
            if (pincode) {
